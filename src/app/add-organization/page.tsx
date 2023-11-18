@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { api } from "~/trpc/react";
+import WalletAddressContext from "~/lib/WalletAddressContext";
 
 export default function AddOrganizationPage() {
   const [name, setName] = useState("");
-  const [walletAddress, setWalletAddress] = useState("");
   const [chainId, setChainId] = useState("");
+  const walletAddress = useContext(WalletAddressContext);
   const addOrganizationMutation = api.addOrganization.useMutation();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -22,14 +23,6 @@ export default function AddOrganizationPage() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-        />
-      </label>
-      <label>
-        Wallet Address:
-        <input
-          type="text"
-          value={walletAddress}
-          onChange={(e) => setWalletAddress(e.target.value)}
         />
       </label>
       <label>
