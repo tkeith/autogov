@@ -20,3 +20,13 @@ model ExampleModel {
 
   @@index([name])
 }
+
+model Organization {
+  id            Int      @id @default(autoincrement())
+  name          String
+  walletAddress String
+  chainId       Int
+  createdAt     DateTime @default(now())
+
+  @@index([name])
+}

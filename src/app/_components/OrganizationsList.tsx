@@ -1,13 +1,21 @@
 "use client";
 
-import React from "react";
-import dummyOrganizationsData from "~/lib/dummyOrganizationsData";
+import React, { useEffect } from "react";
+import { api } from "~/trpc/react";
 import OrganizationCard from "~/app/_components/OrganizationCard";
 
 export default function OrganizationsList() {
+  const organizationsQuery = api.getOrganizations.useQuery(null);
+
+  useEffect(() => {
+    organizationsQuery.refetch().catch((error) => {
+      console.error("Error refetching organizations:", error);
+    });
+  }, [organizationsQuery]);
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {dummyOrganizationsData.map((organization, index) => (
+      {organizationsQuery.data?.organizations.map((organization, index) => (
         <OrganizationCard key={index} organization={organization} />
       ))}
     </div>
