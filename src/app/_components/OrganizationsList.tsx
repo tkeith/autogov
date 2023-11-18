@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { api } from "~/trpc/react";
 import OrganizationCard from "~/app/_components/OrganizationCard";
 import Link from "next/link";
@@ -8,12 +8,6 @@ import AddOrganizationButton from "~/app/_components/AddOrganizationButton";
 
 export default function OrganizationsList() {
   const organizationsQuery = api.getOrganizations.useQuery(null);
-
-  useEffect(() => {
-    organizationsQuery.refetch().catch((error) => {
-      console.error("Error refetching organizations:", error);
-    });
-  }, [organizationsQuery]);
 
   return (
     <div className="flex flex-col space-y-4">
