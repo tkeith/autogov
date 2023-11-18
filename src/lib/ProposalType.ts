@@ -4,8 +4,6 @@ export type Proposal = {
   description: string;
   createdAt: Date;
   creatorAddress: string;
-  yesVotes: number;
-  noVotes: number;
   organizationId: number;
 };
 

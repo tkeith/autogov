@@ -14,10 +14,6 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
       <div className="mb-4">
         <span>Creator: {proposal.creatorAddress}</span>
       </div>
-      <div className="flex justify-between">
-        <span>Yes votes: {proposal.yesVotes}</span>
-        <span>No votes: {proposal.noVotes}</span>
-      </div>
     </div>
   );
 };

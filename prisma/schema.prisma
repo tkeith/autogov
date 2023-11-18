@@ -39,8 +39,6 @@ model Proposal {
   description    String
   createdAt      DateTime @default(now())
   creatorAddress String
-  yesVotes       Int      @default(0)
-  noVotes        Int      @default(0)
   organizationId Int
 
   organization Organization @relation(fields: [organizationId], references: [id])
