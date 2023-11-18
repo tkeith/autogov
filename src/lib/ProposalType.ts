@@ -7,6 +7,7 @@ export type Proposal = {
   organizationId: number;
   codeGenerationStatus: string;
   code: string;
+  status: string;
 };
 
 export default Proposal;

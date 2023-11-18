@@ -42,6 +42,7 @@ model Proposal {
   organizationId       Int
   code                 String
   codeGenerationStatus String
+  status               String   @default("voting")
 
   organization Organization @relation(fields: [organizationId], references: [id])
 

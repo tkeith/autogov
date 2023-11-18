@@ -21,6 +21,7 @@ const createProposal = publicProcedure
         organizationId: input.organizationId,
         codeGenerationStatus: "pending",
         code: "", // Add this line
+        status: "voting",
       },
     });
     // Kick off a background task to generate the code

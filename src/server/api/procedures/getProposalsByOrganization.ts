@@ -17,6 +17,7 @@ const getProposalsByOrganization = publicProcedure
         organizationId: true,
         code: true,
         codeGenerationStatus: true,
+        status: true,
       },
     });
     return proposals;

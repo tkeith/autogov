@@ -23,6 +23,9 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
         <span>Creator: {proposal.creatorAddress}</span>
       </div>
       <div className="mb-4">
+        <span>Status: {proposal.status}</span>
+      </div>
+      <div className="mb-4">
         <div className="flex items-center space-x-2">
           <div>Code Generation Status: {proposal.codeGenerationStatus}</div>
           {proposal.codeGenerationStatus === "pending" && (
