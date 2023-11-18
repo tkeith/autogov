@@ -22,11 +22,11 @@ model ExampleModel {
 }
 
 model Organization {
-  id            Int      @id @default(autoincrement())
-  name          String
-  walletAddress String
-  chainId       Int
-  createdAt     DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  name           String
+  creatorAddress String
+  chainId        Int
+  createdAt      DateTime @default(now())
 
   @@index([name])
 }

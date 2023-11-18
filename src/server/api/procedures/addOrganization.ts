@@ -6,7 +6,7 @@ const addOrganization = publicProcedure
   .input(
     z.object({
       name: z.string(),
-      walletAddress: z.string(),
+      creatorAddress: z.string(),
       chainId: z.string(),
     }),
   )
@@ -14,7 +14,7 @@ const addOrganization = publicProcedure
     const newOrganization = await db.organization.create({
       data: {
         name: input.name,
-        walletAddress: input.walletAddress,
+        creatorAddress: input.creatorAddress,
         chainId: Number(input.chainId),
       },
     });

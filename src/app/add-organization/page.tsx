@@ -9,13 +9,17 @@ import chains from "~/lib/chains";
 export default function AddOrganizationPage() {
   const [name, setName] = useState("");
   const [chainId, setChainId] = useState("");
-  const walletAddress = useContext(WalletAddressContext);
+  const creatorAddress = useContext(WalletAddressContext);
   const addOrganizationMutation = api.addOrganization.useMutation();
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await addOrganizationMutation.mutateAsync({ name, walletAddress, chainId });
+    await addOrganizationMutation.mutateAsync({
+      name,
+      creatorAddress,
+      chainId,
+    });
     router.push("/");
   };
 
