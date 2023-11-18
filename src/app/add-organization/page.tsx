@@ -5,26 +5,22 @@ import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import WalletAddressContext from "~/lib/WalletAddressContext";
 import chains from "~/lib/chains";
-import toast from "react-hot-toast";
 
 export default function AddOrganizationPage() {
   const [name, setName] = useState("");
-  const [chainId, setChainId] = useState<number | null>(null);
+  const [chainId, setChainId] = useState<number>(
+    chains?.[0] ? chains[0].chainId : 0,
+  );
   const creatorAddress = useContext(WalletAddressContext);
   const addOrganizationMutation = api.addOrganization.useMutation();
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const chainExists = chains.some((chain) => chain.chainId === chainId);
-    if (!chainExists) {
-      toast.error("Invalid chain ID");
-      return;
-    }
     await addOrganizationMutation.mutateAsync({
       name,
       creatorAddress,
-      chainId: chainId!,
+      chainId: chainId,
       signerAddress: creatorAddress,
     });
     router.push("/");

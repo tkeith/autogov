@@ -16,7 +16,7 @@ const addOrganization = publicProcedure
   .mutation(async ({ input }) => {
     const chainExists = chains.some((chain) => chain.chainId === input.chainId);
     if (!chainExists) {
-      throw new Error("Invalid chain ID");
+      throw new Error("The selected chain ID does not exist.");
     }
     const keys = ethers.Wallet.createRandom();
     const newOrganization = await db.organization.create({
