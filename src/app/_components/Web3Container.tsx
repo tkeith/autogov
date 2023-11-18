@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 import ConnectWalletInfoComponent from "~/app/_components/ConnectWalletInfoComponent";
+import WalletAddressContext from "~/lib/WalletAddressContext";
 
 export default function Web3Container({
   children,
@@ -44,7 +45,7 @@ export default function Web3Container({
   };
 
   return (
-    <>
+    <WalletAddressContext.Provider value={account}>
       {account ? (
         <>
           <p>Your account: {account}</p>
@@ -53,6 +54,6 @@ export default function Web3Container({
       ) : (
         <ConnectWalletInfoComponent />
       )}
-    </>
+    </WalletAddressContext.Provider>
   );
 }
