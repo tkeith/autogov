@@ -15,8 +15,12 @@ type Organization = {
 export default function OrganizationCard({
   organization,
 }: {
-  organization: Organization;
+  organization: Organization | null;
 }) {
+  if (!organization) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="rounded border p-4 shadow-lg">
       <h2 className="text-xl font-bold">{organization.name}</h2>
