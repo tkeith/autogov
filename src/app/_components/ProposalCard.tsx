@@ -9,7 +9,7 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
   const [showCode, setShowCode] = useState(false);
 
   return (
-    <div className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md">
+    <div className="mb-4 rounded border p-4 shadow-lg">
       <div className="mb-4">
         <h3 className="text-xl font-bold">{proposal.title}</h3>
         <p>{proposal.description}</p>

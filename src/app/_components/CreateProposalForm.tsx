@@ -39,10 +39,7 @@ const CreateProposalForm: React.FC<{
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
-    >
+    <form onSubmit={handleSubmit} className="mb-4 rounded border p-4 shadow-lg">
       <div className="mb-4">
         <label
           className="mb-2 block text-sm font-bold text-gray-700"
