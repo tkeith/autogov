@@ -10,7 +10,6 @@ const getOrganizations = publicProcedure.input(z.null()).query(async () => {
       creatorAddress: true,
       chainId: true,
       pubKey: true,
-      signerAddress: true,
       createdAt: true,
     },
   });

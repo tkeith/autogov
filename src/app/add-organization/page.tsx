@@ -21,7 +21,6 @@ export default function AddOrganizationPage() {
       name,
       creatorAddress,
       chainId: chainId,
-      signerAddress: creatorAddress,
     });
     router.push("/");
   };

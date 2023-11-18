@@ -13,7 +13,6 @@ const getOrganization = publicProcedure
         creatorAddress: true,
         chainId: true,
         pubKey: true,
-        signerAddress: true,
         createdAt: true,
       },
     });

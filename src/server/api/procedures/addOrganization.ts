@@ -10,7 +10,6 @@ const addOrganization = publicProcedure
       name: z.string(),
       creatorAddress: z.string(),
       chainId: z.number(),
-      signerAddress: z.string(),
     }),
   )
   .mutation(async ({ input }) => {
@@ -24,7 +23,6 @@ const addOrganization = publicProcedure
         name: input.name,
         creatorAddress: input.creatorAddress,
         chainId: input.chainId,
-        signerAddress: input.signerAddress,
         privKey: keys.privateKey,
         pubKey: keys.publicKey,
       },

@@ -26,7 +26,6 @@ model Organization {
   name           String
   creatorAddress String
   chainId        Int
-  signerAddress  String
   privKey        String
   pubKey         String
   createdAt      DateTime @default(now())
