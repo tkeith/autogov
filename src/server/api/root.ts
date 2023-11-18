@@ -1,5 +1,6 @@
 import exampleProcedure from "~/server/api/procedures/exampleProcedure";
 import getOrganizations from "~/server/api/procedures/getOrganizations";
+import addOrganization from "~/server/api/procedures/addOrganization";
 import { createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -10,6 +11,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
 export const appRouter = createTRPCRouter({
   exampleProcedure,
   getOrganizations,
+  addOrganization,
 });
 
 // export type definition of API
