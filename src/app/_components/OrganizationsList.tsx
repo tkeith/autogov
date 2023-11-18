@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { api } from "~/trpc/react";
 import OrganizationCard from "~/app/_components/OrganizationCard";
 import Link from "next/link";
+import AddOrganizationButton from "~/app/_components/AddOrganizationButton";
 
 export default function OrganizationsList() {
   const organizationsQuery = api.getOrganizations.useQuery(null);
@@ -21,6 +22,9 @@ export default function OrganizationsList() {
           <OrganizationCard organization={organization} />
         </Link>
       ))}
+      <div className="mt-4">
+        <AddOrganizationButton />
+      </div>
     </div>
   );
 }
