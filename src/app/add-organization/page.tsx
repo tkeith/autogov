@@ -2,6 +2,7 @@
 
 import React, { useContext, useState } from "react";
 import { api } from "~/trpc/react";
+import { useRouter } from "next/navigation";
 import WalletAddressContext from "~/lib/WalletAddressContext";
 import chains from "~/lib/chains";
 
@@ -10,10 +11,12 @@ export default function AddOrganizationPage() {
   const [chainId, setChainId] = useState("");
   const walletAddress = useContext(WalletAddressContext);
   const addOrganizationMutation = api.addOrganization.useMutation();
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await addOrganizationMutation.mutateAsync({ name, walletAddress, chainId });
+    router.push("/");
   };
 
   return (
