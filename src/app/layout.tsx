@@ -26,7 +26,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider cookies={cookies().toString()}>
-          <Web3Container>{children}</Web3Container>
+          <div className="mx-auto my-8 flex max-w-3xl flex-col space-y-4 p-4 ">
+            <Web3Container>{children}</Web3Container>
+          </div>
         </TRPCReactProvider>
       </body>
     </html>
