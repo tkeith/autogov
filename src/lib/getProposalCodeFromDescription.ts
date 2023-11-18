@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { env } from "~/env.mjs";
 
-const SYSTEM_PROMPT = `Generate code to execute the proposal provided by the user. This code can use ethers.js but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
+const SYSTEM_PROMPT = `Generate Node.js code to execute the proposal provided by the user on Ethereum mainnet. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
 
 async function getProposalCodeFromDescription(description: string) {
   // we have a written description of a blockchain proposal, which could involve things like sending tokens. we want to generate ethers.js code to execute this proposal.
@@ -34,7 +34,21 @@ async function getProposalCodeFromDescription(description: string) {
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  return z.string().parse((await response.json()).choices[0].message);
+  let code = z.string().parse((await response.json()).choices[0].message);
+  code = code.trim();
+
+  // while code starts and ends with a backtick, remove them (sometimes gpt adds them around the code)
+  while (true) {
+    if (code.startsWith("`") && code.endsWith("`")) {
+      code = code.slice(1, -1);
+    } else {
+      break;
+    }
+  }
+
+  code = code + "\n";
+
+  return code;
 }
 
 export default getProposalCodeFromDescription;
