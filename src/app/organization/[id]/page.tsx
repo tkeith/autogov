@@ -11,9 +11,12 @@ export default function Page({ params }: { params: { id: string } }) {
   const organizationQuery = api.getOrganization.useQuery({
     id: organizationId,
   });
-  const proposalsQuery = api.getProposalsByOrganization.useQuery({
-    organizationId,
-  });
+  const proposalsQuery = api.getProposalsByOrganization.useQuery(
+    {
+      organizationId,
+    },
+    { refetchInterval: 1000 },
+  );
 
   async function handleNewProposal() {
     await proposalsQuery.refetch();
