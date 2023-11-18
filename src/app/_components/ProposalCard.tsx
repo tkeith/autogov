@@ -52,20 +52,22 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
           </button>
         )}
       </div>
-      <div className="mb-4">
-        <button
-          className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700 focus:outline-none"
-          onClick={() => handleVote("yes")}
-        >
-          Vote Yes
-        </button>
-        <button
-          className="ml-2 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
-          onClick={() => handleVote("no")}
-        >
-          Vote No
-        </button>
-      </div>
+      {proposal.status === "voting" && (
+        <div className="mb-4">
+          <button
+            className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700 focus:outline-none"
+            onClick={() => handleVote("yes")}
+          >
+            Vote Yes
+          </button>
+          <button
+            className="ml-2 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+            onClick={() => handleVote("no")}
+          >
+            Vote No
+          </button>
+        </div>
+      )}
       {showCode && (
         <CodeModal code={proposal.code} onClose={() => setShowCode(false)} />
       )}
