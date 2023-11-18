@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { api } from "~/trpc/react";
 import { toast } from "react-hot-toast";
 import type Proposal from "~/lib/ProposalType";
+import WalletAddressContext from "~/lib/WalletAddressContext";
 
 const CreateProposalForm: React.FC<{
   organizationId: number;
@@ -11,11 +12,12 @@ const CreateProposalForm: React.FC<{
 }> = ({ organizationId, onProposalCreated }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const creatorAddress = useContext(WalletAddressContext);
   const createProposalMutation = api.createProposal.useMutation();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!title || !description) {
+    if (!title || !description || !creatorAddress) {
       toast.error("Please fill in all fields.");
       return;
     }
@@ -24,7 +26,7 @@ const CreateProposalForm: React.FC<{
       const newProposal = await createProposalMutation.mutateAsync({
         title,
         description,
-        creatorAddress: "0x0", // Replace with actual creator address
+        creatorAddress,
         organizationId,
       });
       onProposalCreated(newProposal);
