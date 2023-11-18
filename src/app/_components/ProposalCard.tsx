@@ -1,7 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import type { Proposal } from "~/lib/ProposalType";
+import CodeModal from "~/app/_components/CodeModal";
 
 const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
+  const [showCode, setShowCode] = useState(false);
+
   return (
     <div className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md">
       <div className="mb-4">
@@ -17,9 +22,12 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
       <div className="mb-4">
         <span>Code Generation Status: {proposal.codeGenerationStatus}</span>
         {proposal.codeGenerationStatus === "success" && (
-          <span>Code: {proposal.code}</span>
+          <button onClick={() => setShowCode(true)}>View Code</button>
         )}
       </div>
+      {showCode && (
+        <CodeModal code={proposal.code} onClose={() => setShowCode(false)} />
+      )}
     </div>
   );
 };
