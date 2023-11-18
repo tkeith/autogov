@@ -3,7 +3,17 @@ import { db } from "~/server/db";
 import { z } from "zod";
 
 const getOrganizations = publicProcedure.input(z.null()).query(async () => {
-  const organizations = await db.organization.findMany();
+  const organizations = await db.organization.findMany({
+    select: {
+      id: true,
+      name: true,
+      creatorAddress: true,
+      chainId: true,
+      pubKey: true,
+      signerAddress: true,
+      createdAt: true,
+    },
+  });
   return { organizations };
 });
 

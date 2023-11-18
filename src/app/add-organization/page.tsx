@@ -29,7 +29,6 @@ export default function AddOrganizationPage() {
       name,
       creatorAddress,
       chainId,
-      privKey: keys.privateKey,
       pubKey: keys.publicKey,
       signerAddress: creatorAddress,
     });
