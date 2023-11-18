@@ -31,6 +31,7 @@ export default function AddOrganizationPage() {
       chainId,
       privKey: keys.privateKey,
       pubKey: keys.publicKey,
+      signerAddress: creatorAddress,
     });
     router.push("/");
   };

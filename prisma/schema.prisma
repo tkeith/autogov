@@ -28,6 +28,7 @@ model Organization {
   chainId        Int
   privKey        String?
   pubKey         String?
+  signerAddress  String
   createdAt      DateTime @default(now())
 
   @@index([name])

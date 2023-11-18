@@ -7,6 +7,16 @@ const getOrganization = publicProcedure
   .query(async ({ input }) => {
     const organization = await db.organization.findUnique({
       where: { id: input.id },
+      select: {
+        id: true,
+        name: true,
+        creatorAddress: true,
+        chainId: true,
+        privKey: true,
+        pubKey: true,
+        signerAddress: true,
+        createdAt: true,
+      },
     });
     return { organization };
   });

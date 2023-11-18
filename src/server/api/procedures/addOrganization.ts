@@ -11,6 +11,7 @@ const addOrganization = publicProcedure
       chainId: z.string(),
       privKey: z.string(),
       pubKey: z.string(),
+      signerAddress: z.string(),
     }),
   )
   .mutation(async ({ input }) => {
@@ -27,6 +28,7 @@ const addOrganization = publicProcedure
         chainId: Number(input.chainId),
         privKey: input.privKey,
         pubKey: input.pubKey,
+        signerAddress: input.signerAddress,
       },
     });
     return { newOrganization };

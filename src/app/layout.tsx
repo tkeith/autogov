@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import Web3Container from "~/app/_components/Web3Container";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
             <Web3Container>{children}</Web3Container>
           </div>
         </TRPCReactProvider>
+        <Toaster />
       </body>
     </html>
   );

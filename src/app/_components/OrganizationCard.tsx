@@ -9,6 +9,7 @@ type Organization = {
   name: string;
   creatorAddress: string;
   chainId: number;
+  signerAddress: string;
   createdAt: Date;
 };
 
@@ -25,6 +26,7 @@ export default function OrganizationCard({
     <div className="rounded border p-4 shadow-lg">
       <h2 className="text-xl font-bold">{organization.name}</h2>
       <p>Creator Address: {organization.creatorAddress}</p>
+      <p>Signer Address: {organization.signerAddress}</p>
       <p>Chain: {getChainName(organization.chainId)}</p>
       <p>Created At: {new Date(organization.createdAt).toLocaleDateString()}</p>
     </div>
