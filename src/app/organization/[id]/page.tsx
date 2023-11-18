@@ -16,7 +16,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }, [organizationQuery, params.id]);
 
   return (
-    <div className="p-4">
+    <div>
       <OrganizationCard
         organization={organizationQuery.data?.organization ?? null}
       />
