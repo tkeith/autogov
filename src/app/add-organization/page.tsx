@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useContext, useState } from "react";
+import { ethers } from "ethers";
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import WalletAddressContext from "~/lib/WalletAddressContext";
@@ -9,20 +10,19 @@ import chains from "~/lib/chains";
 export default function AddOrganizationPage() {
   const [name, setName] = useState("");
   const [chainId, setChainId] = useState("");
-  const [privKey, setPrivKey] = useState("");
-  const [pubKey, setPubKey] = useState("");
   const creatorAddress = useContext(WalletAddressContext);
   const addOrganizationMutation = api.addOrganization.useMutation();
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const keys = ethers.Wallet.createRandom();
     await addOrganizationMutation.mutateAsync({
       name,
       creatorAddress,
       chainId,
-      privKey,
-      pubKey,
+      privKey: keys.privateKey,
+      pubKey: keys.publicKey,
     });
     router.push("/");
   };
@@ -39,28 +39,6 @@ export default function AddOrganizationPage() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-      </div>
-      <div className="mb-4">
-        <label className="mb-2 block text-sm font-bold text-gray-700">
-          Private Key:
-          <input
-            type="text"
-            value={privKey}
-            onChange={(e) => setPrivKey(e.target.value)}
-            className="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-      </div>
-      <div className="mb-4">
-        <label className="mb-2 block text-sm font-bold text-gray-700">
-          Public Key:
-          <input
-            type="text"
-            value={pubKey}
-            onChange={(e) => setPubKey(e.target.value)}
             className="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </label>
