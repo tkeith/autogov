@@ -4,9 +4,18 @@ import React, { useState } from "react";
 import type { Proposal } from "~/lib/ProposalType";
 import CodeModal from "~/app/_components/CodeModal";
 import Spinner from "~/app/_components/Spinner";
+import { api } from "~/trpc/react";
 
 const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
   const [showCode, setShowCode] = useState(false);
+  const voteOnProposalMutation = api.voteOnProposal.useMutation();
+
+  const handleVote = async (vote: string) => {
+    await voteOnProposalMutation.mutateAsync({
+      proposalId: proposal.id,
+      vote,
+    });
+  };
 
   return (
     <div className="mb-4 rounded border p-4 shadow-lg">
@@ -42,6 +51,20 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
             View Code
           </button>
         )}
+      </div>
+      <div className="mb-4">
+        <button
+          className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700 focus:outline-none"
+          onClick={() => handleVote("yes")}
+        >
+          Vote Yes
+        </button>
+        <button
+          className="ml-2 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+          onClick={() => handleVote("no")}
+        >
+          Vote No
+        </button>
       </div>
       {showCode && (
         <CodeModal code={proposal.code} onClose={() => setShowCode(false)} />

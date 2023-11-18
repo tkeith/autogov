@@ -16,6 +16,7 @@ export const env = createEnv({
       ),
     OPENAI_KEY: z.string(),
     INFURA_KEY: z.string(),
+    WEB3_STORAGE_TOKEN: z.string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -38,6 +39,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     OPENAI_KEY: process.env.OPENAI_KEY,
     INFURA_KEY: process.env.INFURA_KEY,
+    WEB3_STORAGE_TOKEN: process.env.WEB3_STORAGE_TOKEN,
     NODE_ENV: process.env.NODE_ENV,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },

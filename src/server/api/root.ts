@@ -4,6 +4,7 @@ import addOrganization from "~/server/api/procedures/addOrganization";
 import getOrganization from "~/server/api/procedures/getOrganization";
 import getProposalsByOrganization from "~/server/api/procedures/getProposalsByOrganization";
 import createProposal from "~/server/api/procedures/createProposal";
+import voteOnProposal from "~/server/api/procedures/voteOnProposal";
 import { createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -18,6 +19,7 @@ export const appRouter = createTRPCRouter({
   getOrganization,
   getProposalsByOrganization,
   createProposal,
+  voteOnProposal,
 });
 
 // export type definition of API
