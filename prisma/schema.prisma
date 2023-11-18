@@ -26,6 +26,8 @@ model Organization {
   name           String
   creatorAddress String
   chainId        Int
+  privKey        String
+  pubKey         String
   createdAt      DateTime @default(now())
 
   @@index([name])
