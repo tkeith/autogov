@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import type { Proposal } from "~/lib/ProposalType";
 import CodeModal from "~/app/_components/CodeModal";
+import Spinner from "~/app/_components/Spinner";
 
 const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
   const [showCode, setShowCode] = useState(false);
@@ -29,6 +30,7 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
             View Code
           </button>
         )}
+        {proposal.codeGenerationStatus === "pending" && <Spinner />}
       </div>
       {showCode && (
         <CodeModal code={proposal.code} onClose={() => setShowCode(false)} />
