@@ -15,12 +15,10 @@ export default function OrganizationsList() {
   }, [organizationsQuery]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="flex flex-col space-y-4">
       {organizationsQuery.data?.organizations.map((organization, index) => (
         <Link key={index} href={`/organization/${organization.id}`}>
-          <a>
-            <OrganizationCard organization={organization} />
-          </a>
+          <OrganizationCard organization={organization} />
         </Link>
       ))}
     </div>
