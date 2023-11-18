@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { env } from "~/env.mjs";
 
-const SYSTEM_PROMPT = `Generate Node.js code to execute the proposal provided by the user on Ethereum mainnet. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
+const SYSTEM_PROMPT = `Generate Node.js code to execute the proposal provided by the user on Ethereum mainnet. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. If you need an Infrura project ID, do the same for INFURA_PROJECT_ID_GOES_HERE This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
 
 async function getProposalCodeFromDescription(description: string) {
   // we have a written description of a blockchain proposal, which could involve things like sending tokens. we want to generate ethers.js code to execute this proposal.
@@ -42,12 +42,12 @@ async function getProposalCodeFromDescription(description: string) {
   let code = z.string().parse(jsonRes.choices[0].message.content);
   code = code.trim();
 
-  // while code starts and ends with a backtick, remove them (sometimes gpt adds them around the code)
-  while (true) {
-    if (code.startsWith("`") && code.endsWith("`")) {
-      code = code.slice(1, -1);
-    } else {
-      break;
+  // if code contains ```, find code after the first ``` and before the second one
+  const firstBacktickIndex = code.indexOf("```");
+  if (firstBacktickIndex !== -1) {
+    const secondBacktickIndex = code.indexOf("```", firstBacktickIndex + 3);
+    if (secondBacktickIndex !== -1) {
+      code = code.slice(firstBacktickIndex + 3, secondBacktickIndex);
     }
   }
 

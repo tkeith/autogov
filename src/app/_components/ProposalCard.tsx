@@ -20,9 +20,14 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
         <span>Creator: {proposal.creatorAddress}</span>
       </div>
       <div className="mb-4">
-        <span>Code Generation Status: {proposal.codeGenerationStatus}</span>
+        <div>Code Generation Status: {proposal.codeGenerationStatus}</div>
         {proposal.codeGenerationStatus === "success" && (
-          <button onClick={() => setShowCode(true)}>View Code</button>
+          <button
+            className="mt-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+            onClick={() => setShowCode(true)}
+          >
+            View Code
+          </button>
         )}
       </div>
       {showCode && (
