@@ -22,12 +22,28 @@ model ExampleModel {
 }
 
 model Organization {
-  id             Int      @id @default(autoincrement())
+  id             Int        @id @default(autoincrement())
   name           String
   creatorAddress String
   chainId        Int
   privKey        String
-  createdAt      DateTime @default(now())
+  createdAt      DateTime   @default(now())
+  Proposal       Proposal[]
 
   @@index([name])
+}
+
+model Proposal {
+  id             Int      @id @default(autoincrement())
+  title          String
+  description    String
+  createdAt      DateTime @default(now())
+  creatorAddress String
+  yesVotes       Int      @default(0)
+  noVotes        Int      @default(0)
+  organizationId Int
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
 }
