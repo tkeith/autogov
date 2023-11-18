@@ -8,15 +8,13 @@ const addOrganization = publicProcedure
     z.object({
       name: z.string(),
       creatorAddress: z.string(),
-      chainId: z.string(),
+      chainId: z.number(),
       pubKey: z.string(),
       signerAddress: z.string(),
     }),
   )
   .mutation(async ({ input }) => {
-    const chainExists = chains.some(
-      (chain) => chain.chainId === Number(input.chainId),
-    );
+    const chainExists = chains.some((chain) => chain.chainId === input.chainId);
     if (!chainExists) {
       throw new Error("Invalid chain ID");
     }
@@ -24,7 +22,7 @@ const addOrganization = publicProcedure
       data: {
         name: input.name,
         creatorAddress: input.creatorAddress,
-        chainId: Number(input.chainId),
+        chainId: input.chainId,
         pubKey: input.pubKey,
         signerAddress: input.signerAddress,
       },

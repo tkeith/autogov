@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 export default function AddOrganizationPage() {
   const [name, setName] = useState("");
-  const [chainId, setChainId] = useState("");
+  const [chainId, setChainId] = useState<number | null>(null);
   const creatorAddress = useContext(WalletAddressContext);
   const addOrganizationMutation = api.addOrganization.useMutation();
   const router = useRouter();
@@ -18,9 +18,7 @@ export default function AddOrganizationPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const keys = ethers.Wallet.createRandom();
-    const chainExists = chains.some(
-      (chain) => chain.chainId === Number(chainId),
-    );
+    const chainExists = chains.some((chain) => chain.chainId === chainId);
     if (!chainExists) {
       toast.error("Invalid chain ID");
       return;
@@ -28,7 +26,7 @@ export default function AddOrganizationPage() {
     await addOrganizationMutation.mutateAsync({
       name,
       creatorAddress,
-      chainId,
+      chainId: chainId!,
       pubKey: keys.publicKey,
       signerAddress: creatorAddress,
     });
@@ -55,8 +53,8 @@ export default function AddOrganizationPage() {
         <label className="mb-2 block text-sm font-bold text-gray-700">
           Chain:
           <select
-            value={chainId}
-            onChange={(e) => setChainId(e.target.value)}
+            value={chainId ?? ""}
+            onChange={(e) => setChainId(Number(e.target.value))}
             className="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {chains.map((chain) => (
