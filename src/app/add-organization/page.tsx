@@ -6,6 +6,7 @@ import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import WalletAddressContext from "~/lib/WalletAddressContext";
 import chains from "~/lib/chains";
+import toast from "react-hot-toast";
 
 export default function AddOrganizationPage() {
   const [name, setName] = useState("");
@@ -17,6 +18,13 @@ export default function AddOrganizationPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const keys = ethers.Wallet.createRandom();
+    const chainExists = chains.some(
+      (chain) => chain.chainId === Number(chainId),
+    );
+    if (!chainExists) {
+      toast.error("Invalid chain ID");
+      return;
+    }
     await addOrganizationMutation.mutateAsync({
       name,
       creatorAddress,

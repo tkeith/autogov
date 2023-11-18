@@ -1,6 +1,7 @@
 import { publicProcedure } from "~/server/api/trpc";
 import { db } from "~/server/db";
 import { z } from "zod";
+import chains from "~/lib/chains";
 
 const addOrganization = publicProcedure
   .input(
@@ -13,6 +14,12 @@ const addOrganization = publicProcedure
     }),
   )
   .mutation(async ({ input }) => {
+    const chainExists = chains.some(
+      (chain) => chain.chainId === Number(input.chainId),
+    );
+    if (!chainExists) {
+      throw new Error("Invalid chain ID");
+    }
     const newOrganization = await db.organization.create({
       data: {
         name: input.name,
