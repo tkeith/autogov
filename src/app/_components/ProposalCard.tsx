@@ -14,6 +14,12 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
       <div className="mb-4">
         <span>Creator: {proposal.creatorAddress}</span>
       </div>
+      <div className="mb-4">
+        <span>Code Generation Status: {proposal.codeGenerationStatus}</span>
+        {proposal.codeGenerationStatus === "completed" && (
+          <span>Code: {proposal.code}</span>
+        )}
+      </div>
     </div>
   );
 };

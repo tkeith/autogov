@@ -48,7 +48,10 @@ async function getProposalCodeFromDescription(description: string) {
 
   code = code + "\n";
 
-  return code;
+  return {
+    code,
+    status: "success",
+  };
 }
 
 export default getProposalCodeFromDescription;

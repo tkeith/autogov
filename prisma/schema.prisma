@@ -34,12 +34,14 @@ model Organization {
 }
 
 model Proposal {
-  id             Int      @id @default(autoincrement())
-  title          String
-  description    String
-  createdAt      DateTime @default(now())
-  creatorAddress String
-  organizationId Int
+  id                   Int      @id @default(autoincrement())
+  title                String
+  description          String
+  createdAt            DateTime @default(now())
+  creatorAddress       String
+  organizationId       Int
+  code                 String
+  codeGenerationStatus String
 
   organization Organization @relation(fields: [organizationId], references: [id])
 

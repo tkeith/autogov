@@ -1,6 +1,7 @@
 import { publicProcedure } from "~/server/api/trpc";
 import { z } from "zod";
 import { db } from "~/server/db";
+import getProposalCodeFromDescription from "~/lib/getProposalCodeFromDescription";
 
 const createProposal = publicProcedure
   .input(
@@ -18,7 +19,23 @@ const createProposal = publicProcedure
         description: input.description,
         creatorAddress: input.creatorAddress,
         organizationId: input.organizationId,
+        codeGenerationStatus: "pending",
+        code: "", // Add this line
       },
+    });
+    // Kick off a background task to generate the code
+    setImmediate(() => {
+      (async () => {
+        const { code, status } = await getProposalCodeFromDescription(
+          input.description,
+        );
+        await db.proposal.update({
+          where: { id: proposal.id },
+          data: { code, codeGenerationStatus: status },
+        });
+      })().catch((error) => {
+        console.error("Error generating proposal code:", error);
+      });
     });
     return proposal;
   });

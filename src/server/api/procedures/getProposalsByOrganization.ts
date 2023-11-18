@@ -8,6 +8,16 @@ const getProposalsByOrganization = publicProcedure
     const proposals = await db.proposal.findMany({
       where: { organizationId: input.organizationId },
       orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        createdAt: true,
+        creatorAddress: true,
+        organizationId: true,
+        code: true,
+        codeGenerationStatus: true,
+      },
     });
     return proposals;
   });

@@ -5,6 +5,8 @@ export type Proposal = {
   createdAt: Date;
   creatorAddress: string;
   organizationId: number;
+  codeGenerationStatus: string;
+  code: string;
 };
 
 export default Proposal;
