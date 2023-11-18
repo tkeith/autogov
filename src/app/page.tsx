@@ -1,3 +1,12 @@
+"use client";
+
+import React from "react";
+import OrganizationsList from "~/app/_components/OrganizationsList";
+
 export default function Home() {
-  return <main> </main>;
+  return (
+    <main>
+      <OrganizationsList />
+    </main>
+  );
 }
