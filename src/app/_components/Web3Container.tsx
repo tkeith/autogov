@@ -48,7 +48,7 @@ export default function Web3Container({
     <WalletAddressContext.Provider value={account}>
       {account ? (
         <>
-          <p>Your account: {account}</p>
+          {/* <p>Your account: {account}</p> */}
           {children}
         </>
       ) : (
