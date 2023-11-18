@@ -40,9 +40,10 @@ model Proposal {
   createdAt            DateTime @default(now())
   creatorAddress       String
   organizationId       Int
-  code                 String
-  codeGenerationStatus String
+  code                 String   @default("")
+  codeGenerationStatus String   @default("pending")
   status               String   @default("voting")
+  codeResult           String   @default("")
 
   organization Organization @relation(fields: [organizationId], references: [id])
 
