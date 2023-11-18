@@ -11,4 +11,9 @@ const chains = [
   },
 ];
 
+export const getChainName = (chainId: number) => {
+  const chain = chains.find((chain) => chain.chainId === chainId);
+  return chain ? chain.name : "Unknown chain";
+};
+
 export default chains;

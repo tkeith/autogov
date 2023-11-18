@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { getChainName } from "~/lib/chains";
 
 // Define the type for organization
 type Organization = {
@@ -20,7 +21,7 @@ export default function OrganizationCard({
     <div className="rounded border p-4 shadow-lg">
       <h2 className="text-xl font-bold">{organization.name}</h2>
       <p>Wallet Address: {organization.walletAddress}</p>
-      <p>Chain ID: {organization.chainId}</p>
+      <p>Chain: {getChainName(organization.chainId)}</p>
       <p>Created At: {new Date(organization.createdAt).toLocaleDateString()}</p>
     </div>
   );
