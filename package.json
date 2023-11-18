@@ -6,7 +6,7 @@
     "build": "next build",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "dev": "nodemon --watch node_modules/.prisma -e js,ts,json --exec 'next dev'",
+    "dev": "nodemon --watch node_modules/.prisma -e ts,d.ts,js,json --exec 'next dev'",
     "postinstall": "prisma generate",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
