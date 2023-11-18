@@ -16,7 +16,7 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
       </div>
       <div className="mb-4">
         <span>Code Generation Status: {proposal.codeGenerationStatus}</span>
-        {proposal.codeGenerationStatus === "completed" && (
+        {proposal.codeGenerationStatus === "success" && (
           <span>Code: {proposal.code}</span>
         )}
       </div>

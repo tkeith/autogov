@@ -33,8 +33,13 @@ async function getProposalCodeFromDescription(description: string) {
     method: "POST",
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const jsonRes = await response.json();
+
+  console.log(`GPT res: ${JSON.stringify(jsonRes, null, 2)}`);
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  let code = z.string().parse((await response.json()).choices[0].message);
+  let code = z.string().parse(jsonRes.choices[0].message.content);
   code = code.trim();
 
   // while code starts and ends with a backtick, remove them (sometimes gpt adds them around the code)
