@@ -1,3 +1,5 @@
 import { createContext } from "react";
 
-export default createContext<string>("");
+const WalletAddressContext = createContext<string>("");
+
+export default WalletAddressContext;
