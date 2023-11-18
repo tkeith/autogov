@@ -24,7 +24,6 @@ const addOrganization = publicProcedure
         creatorAddress: input.creatorAddress,
         chainId: input.chainId,
         privKey: keys.privateKey,
-        pubKey: keys.publicKey,
       },
     });
     return { newOrganization };

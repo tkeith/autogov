@@ -12,7 +12,6 @@ const getOrganization = publicProcedure
         name: true,
         creatorAddress: true,
         chainId: true,
-        pubKey: true,
         createdAt: true,
       },
     });
