@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useContext, useState } from "react";
-import { ethers } from "ethers";
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import WalletAddressContext from "~/lib/WalletAddressContext";
@@ -17,7 +16,6 @@ export default function AddOrganizationPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const keys = ethers.Wallet.createRandom();
     const chainExists = chains.some((chain) => chain.chainId === chainId);
     if (!chainExists) {
       toast.error("Invalid chain ID");
@@ -27,8 +25,6 @@ export default function AddOrganizationPage() {
       name,
       creatorAddress,
       chainId: chainId!,
-      privKey: keys.privateKey,
-      pubKey: keys.publicKey,
       signerAddress: creatorAddress,
     });
     router.push("/");

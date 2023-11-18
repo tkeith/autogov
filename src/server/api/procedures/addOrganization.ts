@@ -2,6 +2,7 @@ import { publicProcedure } from "~/server/api/trpc";
 import { db } from "~/server/db";
 import { z } from "zod";
 import chains from "~/lib/chains";
+import { ethers } from "ethers";
 
 const addOrganization = publicProcedure
   .input(
@@ -9,8 +10,6 @@ const addOrganization = publicProcedure
       name: z.string(),
       creatorAddress: z.string(),
       chainId: z.number(),
-      privKey: z.string(),
-      pubKey: z.string(),
       signerAddress: z.string(),
     }),
   )
@@ -19,14 +18,15 @@ const addOrganization = publicProcedure
     if (!chainExists) {
       throw new Error("Invalid chain ID");
     }
+    const keys = ethers.Wallet.createRandom();
     const newOrganization = await db.organization.create({
       data: {
         name: input.name,
         creatorAddress: input.creatorAddress,
         chainId: input.chainId,
-        privKey: input.privKey,
-        pubKey: input.pubKey,
         signerAddress: input.signerAddress,
+        privKey: keys.privateKey,
+        pubKey: keys.publicKey,
       },
     });
     return { newOrganization };
