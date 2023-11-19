@@ -6,6 +6,21 @@ import CodeModal from "~/app/_components/CodeModal";
 import Spinner from "~/app/_components/Spinner";
 import { api } from "~/trpc/react";
 
+const getEmojiForStatus = (status: string) => {
+  switch (status) {
+    case "voting":
+      return "🗳️"; // Emoji for voting
+    case "implementing":
+      return "🤖"; // Emoji for implementing
+    case "implemented":
+      return "✅"; // Emoji for implemented
+    case "rejected":
+      return "❌"; // Emoji for rejected
+    default:
+      return "";
+  }
+};
+
 const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
   const [showCode, setShowCode] = useState(false);
   const [showCodeResult, setShowCodeResult] = useState(false);
@@ -33,7 +48,9 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
         <span>Creator: {proposal.creatorAddress}</span>
       </div>
       <div className="mb-4 flex items-center space-x-2">
-        <div>Status: {proposal.status}</div>
+        <div>
+          Status: {getEmojiForStatus(proposal.status)} {proposal.status}
+        </div>
         {proposal.status === "implementing" && (
           <div>
             <Spinner />
