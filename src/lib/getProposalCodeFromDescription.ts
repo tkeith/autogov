@@ -19,7 +19,7 @@ async function getProposalCodeFromDescription(
   const networkName = chain.name;
   const rpcUrl = chain.rpc;
 
-  let systemPrompt = `Generate Node.js code to execute the proposal provided by the user on ${networkName}, which has RPC URL "${rpcUrl}" and chainId ${chainId}. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. Use console.log for detailed logging, including txn hashes. When constructing a Contract object, make sure to use \`new ethers.Contract(address, abi, wallet)\`. Make sure to use \`process.exit(0)\` after completion. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
+  let systemPrompt = `Generate Node.js code to execute the proposal provided by the user on ${networkName}, which has RPC URL "${rpcUrl}" and chainId ${chainId}. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries (you have access to the \`fetch\` function already). The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. Use console.log for detailed logging, including txn hashes. When constructing a Contract object, make sure to use \`new ethers.Contract(address, abi, wallet)\`. Make sure to use \`process.exit(0)\` after completion. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
 
   if (chain.info) {
     systemPrompt =

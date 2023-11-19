@@ -6,6 +6,7 @@ import getBalance from "~/lib/getBalance";
 
 export default function OrganizationCard({
   organization,
+  includeBalance,
 }: {
   organization: {
     id: number;
@@ -15,6 +16,7 @@ export default function OrganizationCard({
     chainId: number;
     createdAt: Date;
   } | null;
+  includeBalance?: boolean;
 }) {
   const [balance, setBalance] = React.useState<string | null>(null);
 
@@ -23,12 +25,20 @@ export default function OrganizationCard({
     if (!organization) {
       return;
     }
-    void getBalance(organization.chainId, organization.address).then(
-      (balance) => {
-        setBalance(balance);
-      },
-    );
-  }, [organization]);
+
+    function refresh() {
+      if (includeBalance) {
+        void getBalance(organization!.chainId, organization!.address).then(
+          (balance) => {
+            setBalance(balance);
+          },
+        );
+      }
+    }
+    refresh();
+    const interval = setInterval(refresh, 5000);
+    return () => clearInterval(interval);
+  }, [organization, includeBalance]);
 
   if (!organization) {
     return <div>Loading...</div>;
@@ -40,7 +50,7 @@ export default function OrganizationCard({
       <p>Creator Address: {organization.creatorAddress}</p>
       <p>Organization Address: {organization.address}</p>
       <p>Chain: {getChainName(organization.chainId)}</p>
-      <p>Balance: {balance}</p>
+      {includeBalance && <p>Balance: {balance}</p>}
     </div>
   );
 }

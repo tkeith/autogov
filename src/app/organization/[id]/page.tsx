@@ -27,6 +27,7 @@ export default function Page({ params }: { params: { id: string } }) {
       <div className="mb-4">
         <OrganizationCard
           organization={organizationQuery.data?.organization ?? null}
+          includeBalance={true}
         />
       </div>
       <CreateProposalForm

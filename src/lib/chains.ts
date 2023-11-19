@@ -19,7 +19,7 @@ const chains: {
     name: "Ethereum",
     chainId: 1,
     rpc: "https://eth.llamarpc.com",
-    info: `ApeCoin ERC-20 token is 0x4d224452801aced8b2f0aebe155379bb5d594381 with 18 decimals. USDC ERC-20 token is 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 with 6 decimals. sDAI ERC-20 token is 0x83f20f44975d03b1b09e64809b757c47f942beea with 18 decimals.
+    info: `ApeCoin ERC-20 token is 0x4d224452801aced8b2f0aebe155379bb5d594381 with 18 decimals. USDC ERC-20 token is 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 with 6 decimals. sDAI ERC-20 token is 0x83f20f44975d03b1b09e64809b757c47f942beea with 18 decimals. GHO ERC-20 token is 0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f with 18 decimals.
 
 1inch has a swap API like this: https://api.1inch.dev/swap/v5.2/\${chainId}/swap?src=\${swapFromTokenAddress}&dst=\${swapToTokenAddress}&amount=\${swapAmount}&from=\${caller}&slippage=1&disableEstimate=false&includeTokensInfo=true&includeProtocols=true&compatibility=true&allowPartialFill=false
 - Use Authorization: Bearer MVDMYK67zM4FFHi1W1zeIxqtJTKY7muF
@@ -43,7 +43,7 @@ Kisser address: 0x0Dcc19657007713483A5cA76e6A7bbe5f56EA37d
 Kisser ABI: ["function selfKiss(address oracle) external"]
 
 
-To read the oracle, call selfKiss first on the Kisser (passing in the oracle address, and ignoring errors), and then call read on the oracle and shift the decimal point 18 spots to the left.
+To read the oracle, call selfKiss first on the Kisser (passing in the oracle address, and ignoring errors), and then call read on the oracle and divide by 1e18.
 `,
   },
   // polygon
@@ -57,6 +57,61 @@ To read the oracle, call selfKiss first on the Kisser (passing in the oracle add
     name: "Arbitrum",
     chainId: 42161,
     rpc: "https://1rpc.io/arb",
+  },
+  {
+    name: "Scroll Sepolia",
+    chainId: 534351,
+    rpc: "https://sepolia-rpc.scroll.io",
+  },
+  {
+    name: "Mantle",
+    chainId: 5000,
+    rpc: "https://1rpc.io/mantle",
+    info: `
+
+To get the ETH price in USD call this API3 Oracle: 0x26690F9f17FdC26D419371315bc17950a0FC90eD with ABI ["function read() external view returns (int224 value, uint32 timestamp)"] and divide by 1e18
+    `,
+  },
+  {
+    name: "BASE",
+    chainId: 8453,
+    rpc: "https://base.llamarpc.com",
+  },
+  {
+    name: "NEON EVM DevNet",
+    chainId: 245022926,
+    rpc: "https://proxy.devnet.neonlabs.org/solana",
+  },
+  {
+    name: "XDC Network",
+    chainId: 50,
+    rpc: "https://rpc.ankr.com/xdc",
+    info: `
+
+0x951857744785e80e2de051c32ee7b25f9c458c42 is ERC-20 Wrapped XDC with 18 decimals. 0xd4b5f10d61916bd6e0860144a91ac658de8a1437 is ERC-20 USDT with 6 decimals.
+
+To interact with Fathom (compatible with Uniswap V2), first call the tickers API: GET https://api.fathom.fi/tickers
+
+Find this pool (by pool_id) in the response array: {
+  "pool_id": "0xfcabba53dac7b6b19714c7d741a46f6dad260107",
+  "base_currency": "0x951857744785e80e2de051c32ee7b25f9c458c42",
+  "target_currency": "0xd4b5f10d61916bd6e0860144a91ac658de8a1437",
+  "ticker_id": "0x951857744785e80e2de051c32ee7b25f9c458c42_0xd4b5f10d61916bd6e0860144a91ac658de8a1437",
+  "last_price": 0.002249352085719417,
+  "liquidity_in_usd": "130391.299714",
+  "base_volume": 31341.923092440527,
+  "target_volume": 13933755.987523114
+}
+
+Then, after the appropriate ERC-20 approval call, you can perform swaps using the Fathom (compatible with Uniswap V2) router at 0x7e5b4c238a904329596c4094877d48868d739963 with ABI ["function swapExactTokensForTokens(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline
+) external returns (uint[] memory amounts)"]
+
+`,
+  },
+  {
+    name: "Gnosis Chain",
+    chainId: 100,
+    rpc: "https://gnosis.drpc.org",
   },
 ];
 
