@@ -36,7 +36,7 @@ const CodeModal: React.FC<CodeModalProps> = ({
             <div className="sm:flex sm:items-start">
               <div className=" mt-3 w-full text-center sm:mt-0 sm:text-left">
                 <div className="mt-2">
-                  <pre className="whitespace-pre-wrap rounded bg-black p-2 font-mono text-sm  text-white">
+                  <pre className="max-h-[50rem] overflow-x-clip overflow-y-scroll whitespace-pre-wrap rounded bg-black p-2 font-mono  text-sm text-white">
                     {code.trim()}
                   </pre>
                 </div>

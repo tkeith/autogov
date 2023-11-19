@@ -19,12 +19,19 @@ async function getProposalCodeFromDescription(
   const networkName = chain.name;
   const rpcUrl = chain.rpc;
 
-  const SYSTEM_PROMPT = `Generate Node.js code to execute the proposal provided by the user on ${networkName}, which has RPC URL "${rpcUrl}" and chainId ${chainId}. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
+  let systemPrompt = `Generate Node.js code to execute the proposal provided by the user on ${networkName}, which has RPC URL "${rpcUrl}" and chainId ${chainId}. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. Make sure to use \`process.exit(0)\` after completion. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
+
+  if (chain.info) {
+    systemPrompt =
+      systemPrompt +
+      "\n\nThis additional info might help as well, but ignore if not useful:\n\n" +
+      chain.info;
+  }
 
   const requestBody = JSON.stringify(
     {
       messages: [
-        { role: "system", content: SYSTEM_PROMPT },
+        { role: "system", content: systemPrompt },
         { role: "user", content: description },
       ],
       temperature: 0.3,
@@ -66,7 +73,7 @@ async function getProposalCodeFromDescription(
 
   // if code starts with "javascript", remove it
   if (code.startsWith("javascript")) {
-    code = code.slice(10);
+    code = code.slice(10).trim();
   }
 
   code = code + "\n";

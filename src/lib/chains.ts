@@ -2,6 +2,7 @@ const chains: {
   name: string;
   chainId: number;
   rpc: string;
+  info?: string;
 }[] = [
   {
     name: "Linea",
@@ -18,6 +19,13 @@ const chains: {
     name: "Ethereum",
     chainId: 1,
     rpc: "https://eth.llamarpc.com",
+  },
+  // polygon
+  {
+    name: "Polygon",
+    chainId: 137,
+    rpc: "https://polygon-rpc.com",
+    info: `ApeCoin token is 0xb7b31a6bc18e48888545ce79e83e06003be70930`,
   },
 ];
 

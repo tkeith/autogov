@@ -32,8 +32,13 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
       <div className="mb-4">
         <span>Creator: {proposal.creatorAddress}</span>
       </div>
-      <div className="mb-4">
-        <span>Status: {proposal.status}</span>
+      <div className="mb-4 flex items-center space-x-2">
+        <div>Status: {proposal.status}</div>
+        {proposal.status === "implementing" && (
+          <div>
+            <Spinner />
+          </div>
+        )}
       </div>
       <div className="mb-4">
         <div className="flex items-center space-x-2">
@@ -57,7 +62,7 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
                 className="ml-4 mt-4 w-36 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
                 onClick={() => setShowCodeResult(true)}
               >
-                View Implementation Result
+                View Result
               </button>
             )}
             {proposal.status === "voting" && (
