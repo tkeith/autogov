@@ -31,9 +31,7 @@ export default function RootLayout({
           <div className="mx-auto my-8 flex max-w-3xl flex-col space-y-4 p-4 ">
             <Web3Container>
               <Link href="/">
-                <h1 className="cursor-pointer text-3xl font-bold">
-                  AutoGovern
-                </h1>
+                <h1 className="cursor-pointer text-3xl font-bold">Autogov</h1>
               </Link>
               {children}
             </Web3Container>
