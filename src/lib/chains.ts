@@ -21,11 +21,20 @@ const chains: {
     rpc: "https://eth.llamarpc.com",
     info: `ApeCoin ERC-20 token is 0x4d224452801aced8b2f0aebe155379bb5d594381 with 18 decimals. USDC ERC-20 token is 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 with 6 decimals. sDAI ERC-20 token is 0x83f20f44975d03b1b09e64809b757c47f942beea with 18 decimals. GHO ERC-20 token is 0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f with 18 decimals.
 
-1inch has a swap API like this: https://api.1inch.dev/swap/v5.2/\${chainId}/swap?src=\${swapFromTokenAddress}&dst=\${swapToTokenAddress}&amount=\${swapAmount}&from=\${caller}&slippage=1&disableEstimate=false&includeTokensInfo=true&includeProtocols=true&compatibility=true&allowPartialFill=false
+1inch has a swap API like this: https://api.1inch.dev/swap/v5.2/\${chainId}/swap?src=\${swapFromTokenAddress}&dst=\${swapToTokenAddress}&amount=\${swapAmount}&from=\${myWalletAddress}&slippage=1&disableEstimate=false&includeTokensInfo=true&includeProtocols=true&compatibility=true&allowPartialFill=false
 - Use Authorization: Bearer MVDMYK67zM4FFHi1W1zeIxqtJTKY7muF
+- Calculate myWalletAddress from the private key
 - amount is of the sending token
 - You must approve spending of the token by spender 0x1111111254eeb25477b68fb85ed929f73a960582 using ERC-20 approve before calling the API
-- From the response json, you have tx, which you can use to execute the swap with Ethers
+- From the response json, you have tx, which you can use to execute the swap with Ethers -- for example:
+
+const swapTx = await wallet.sendTransaction({
+  to: tx.to,
+  data: tx.data,
+  value: tx.value,
+  gasPrice: tx.gasPrice,
+  gasLimit: tx.gas
+});
 `,
   },
   {

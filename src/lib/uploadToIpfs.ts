@@ -45,7 +45,7 @@ async function uploadToIpfs(name: string, data: string) {
     const cid = z.string().parse(result.IpfsHash);
     console.log(`Stored file with CID: ${cid}`);
 
-    const ipfsUrl = `https://ipfs.io/ipfs/${cid}`;
+    const ipfsUrl = `https://cloudflare-ipfs.com/ipfs/${cid}`;
     console.log(ipfsUrl);
 
     return ipfsUrl;
