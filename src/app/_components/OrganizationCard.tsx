@@ -20,7 +20,6 @@ export default function OrganizationCard({
 }) {
   const [balance, setBalance] = React.useState<string | null>(null);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (!organization) {
       return;
