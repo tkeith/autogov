@@ -1,12 +1,13 @@
 import { db } from "~/server/db";
 import fs from "fs";
 import { spawn } from "child_process";
+import uploadToIpfs from "~/lib/uploadToIpfs";
 
 const runProposalCode = async (id: number) => {
   // grab the proposal
   const proposal = await db.proposal.findUniqueOrThrow({
     where: { id },
-    select: { code: true, organizationId: true },
+    select: { code: true, organizationId: true, id: true },
   });
 
   const organization = await db.organization.findUniqueOrThrow({
@@ -53,12 +54,21 @@ const runProposalCode = async (id: number) => {
     fs.unlinkSync("./tmp-proposal-code.js");
   }
 
+  console.log(`Proposal code output: ${output}`);
+
+  // save it on ipfs
+  const ipfsUrl = await uploadToIpfs(
+    `proposal_${proposal.id}_result.txt`,
+    output,
+  );
+
   // update the database
   await db.proposal.update({
     where: { id },
     data: {
       codeResult: output,
-      status: "implimented",
+      codeResultIpfsUrl: ipfsUrl,
+      status: "implemented",
     },
   });
 };

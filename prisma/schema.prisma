@@ -42,6 +42,7 @@ model Proposal {
   organizationId       Int
   code                 String   @default("")
   codeIpfsUrl          String   @default("")
+  codeResultIpfsUrl    String   @default("")
   codeGenerationStatus String   @default("pending")
   status               String   @default("voting")
   codeResult           String   @default("")

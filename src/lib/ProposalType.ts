@@ -9,6 +9,8 @@ export type Proposal = {
   code: string;
   status: string;
   codeIpfsUrl: string;
+  codeResult: string;
+  codeResultIpfsUrl: string;
 };
 
 export default Proposal;

@@ -8,6 +8,7 @@ import { api } from "~/trpc/react";
 
 const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
   const [showCode, setShowCode] = useState(false);
+  const [showCodeResult, setShowCodeResult] = useState(false);
   const voteOnProposalMutation = api.voteOnProposal.useMutation();
 
   const handleVote = async (vote: string) => {
@@ -51,6 +52,14 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
             >
               View Code
             </button>
+            {proposal.status === "implemented" && (
+              <button
+                className="ml-4 mt-4 w-36 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+                onClick={() => setShowCodeResult(true)}
+              >
+                View Implementation Result
+              </button>
+            )}
             {proposal.status === "voting" && (
               <>
                 <button
@@ -76,6 +85,14 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
           code={proposal.code}
           codeIpfsUrl={proposal.codeIpfsUrl}
           onClose={() => setShowCode(false)}
+        />
+      )}
+
+      {showCodeResult && (
+        <CodeModal
+          code={proposal.codeResult}
+          codeIpfsUrl={proposal.codeResultIpfsUrl}
+          onClose={() => setShowCodeResult(false)}
         />
       )}
     </div>

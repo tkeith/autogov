@@ -1,13 +1,23 @@
-const chains = [
+const chains: {
+  name: string;
+  chainId: number;
+  rpc: string;
+}[] = [
+  {
+    name: "Linea",
+    chainId: 59144,
+    rpc: "https://linea.drpc.org",
+  },
+  {
+    name: "ZKEVM",
+    chainId: 1101,
+    rpc: "https://polygon-zkevm.drpc.org",
+  },
+  // ethereum
   {
     name: "Ethereum",
     chainId: 1,
-    rpc: "https://mainnet.infura.io/v3/YOUR-PROJECT-ID",
-  },
-  {
-    name: "Polygon",
-    chainId: 137,
-    rpc: "https://rpc-mainnet.maticvigil.com/",
+    rpc: "https://eth.llamarpc.com",
   },
 ];
 

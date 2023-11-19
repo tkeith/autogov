@@ -1,12 +1,25 @@
 import { z } from "zod";
 import { env } from "~/env.mjs";
+import chains from "~/lib/chains";
 
-const SYSTEM_PROMPT = `Generate Node.js code to execute the proposal provided by the user on Linea, which has RPC URL "https://linea.drpc.org" and chainId 59144. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
-
-async function getProposalCodeFromDescription(description: string) {
+async function getProposalCodeFromDescription(
+  chainId: number,
+  description: string,
+) {
   // we have a written description of a blockchain proposal, which could involve things like sending tokens. we want to generate ethers.js code to execute this proposal.
   // the first line of the code should be: const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";
   // this will be automatically replaced with the private key of the organization that is executing the proposal.
+
+  // grab chain details by id
+  const chain = chains.find((chain) => chain.chainId === chainId);
+  if (!chain) {
+    throw Error("unexpected no chain");
+  }
+
+  const networkName = chain.name;
+  const rpcUrl = chain.rpc;
+
+  const SYSTEM_PROMPT = `Generate Node.js code to execute the proposal provided by the user on ${networkName}, which has RPC URL "${rpcUrl}" and chainId ${chainId}. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
 
   const requestBody = JSON.stringify(
     {
