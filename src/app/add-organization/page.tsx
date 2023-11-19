@@ -31,8 +31,8 @@ export default function AddOrganizationPage() {
       className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
     >
       <div className="mb-4">
-        <label className="mb-2 block text-sm font-bold text-gray-700">
-          Name:
+        <label className="mb-2 block">
+          <span className="text-sm font-bold text-gray-700">Name:</span>
           <input
             type="text"
             value={name}
@@ -42,8 +42,8 @@ export default function AddOrganizationPage() {
         </label>
       </div>
       <div className="mb-6">
-        <label className="mb-2 block text-sm font-bold text-gray-700">
-          Chain:
+        <label className="mb-2 block">
+          <span className="text-sm font-bold text-gray-700">Chain:</span>
           <select
             value={chainId ?? ""}
             onChange={(e) => setChainId(Number(e.target.value))}

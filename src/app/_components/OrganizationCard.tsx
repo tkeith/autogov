@@ -27,11 +27,13 @@ export default function OrganizationCard({
 
     function refresh() {
       if (includeBalance) {
-        void getBalance(organization!.chainId, organization!.address).then(
-          (balance) => {
-            setBalance(balance);
-          },
-        );
+         getBalance(organization!.chainId, organization!.address)
+           .then((balance) => {
+             setBalance(balance);
+           })
+           .catch((err) => {
+             console.log("error getting balance: ", err);
+           });
       }
     }
     refresh();
