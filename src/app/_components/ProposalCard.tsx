@@ -36,7 +36,12 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
   return (
     <div className="mb-4 rounded border p-4 shadow-lg">
       <div className="mb-4">
-        <h3 className="mb-4 text-xl font-bold">{proposal.title}</h3>
+        <h3 className="mb-4 text-xl font-bold">
+          <span className="">{proposal.title}</span>
+          <span className="ml-2">-</span>
+          <span className="ml-2">{proposal.status}</span>
+          <span className="ml-2">{getEmojiForStatus(proposal.status)}</span>
+        </h3>
         <div className="rounded bg-gray-200 p-4">
           <p>{proposal.description}</p>
         </div>
@@ -48,9 +53,7 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
         <span>Creator: {proposal.creatorAddress}</span>
       </div>
       <div className="mb-4 flex items-center space-x-2">
-        <div>
-          Status: {getEmojiForStatus(proposal.status)} {proposal.status}
-        </div>
+        <div>Status: {proposal.status}</div>
         {proposal.status === "implementing" && (
           <div>
             <Spinner />
