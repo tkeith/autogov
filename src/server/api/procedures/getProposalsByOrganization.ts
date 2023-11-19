@@ -18,6 +18,7 @@ const getProposalsByOrganization = publicProcedure
         code: true,
         codeGenerationStatus: true,
         status: true,
+        codeIpfsUrl: true,
       },
     });
     return proposals;

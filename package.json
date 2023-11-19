@@ -21,6 +21,7 @@
     "@trpc/next": "^10.37.1",
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
+    "@web3-storage/w3up-client": "^11.0.1",
     "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
     "forever": "^4.0.3",

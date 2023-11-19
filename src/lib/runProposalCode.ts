@@ -6,7 +6,12 @@ const runProposalCode = async (id: number) => {
   // grab the proposal
   const proposal = await db.proposal.findUniqueOrThrow({
     where: { id },
-    select: { code: true },
+    select: { code: true, organizationId: true },
+  });
+
+  const organization = await db.organization.findUniqueOrThrow({
+    where: { id: proposal.organizationId },
+    select: { privKey: true },
   });
 
   // update status to 'implementing'
@@ -17,7 +22,12 @@ const runProposalCode = async (id: number) => {
     },
   });
 
-  const code = proposal.code;
+  let code = proposal.code;
+
+  // replace "PRIVATE_KEY_GOES_HERE" with the organization's private key
+  code = code.replace("PRIVATE_KEY_GOES_HERE", organization.privKey);
+
+  console.log(`Running proposal code: ${code}`);
 
   // save the code in tmp-proposal-code.js
   fs.writeFileSync("./tmp-proposal-code.js", code);

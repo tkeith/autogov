@@ -41,6 +41,7 @@ model Proposal {
   creatorAddress       String
   organizationId       Int
   code                 String   @default("")
+  codeIpfsUrl          String   @default("")
   codeGenerationStatus String   @default("pending")
   status               String   @default("voting")
   codeResult           String   @default("")

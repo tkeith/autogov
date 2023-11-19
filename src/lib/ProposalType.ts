@@ -8,6 +8,7 @@ export type Proposal = {
   codeGenerationStatus: string;
   code: string;
   status: string;
+  codeIpfsUrl: string;
 };
 
 export default Proposal;

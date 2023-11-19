@@ -24,9 +24,11 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <OrganizationCard
-        organization={organizationQuery.data?.organization ?? null}
-      />
+      <div className="mb-4">
+        <OrganizationCard
+          organization={organizationQuery.data?.organization ?? null}
+        />
+      </div>
       <CreateProposalForm
         organizationId={organizationId}
         onProposalCreated={handleNewProposal}

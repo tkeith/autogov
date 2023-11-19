@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { env } from "~/env.mjs";
 
-const SYSTEM_PROMPT = `Generate Node.js code to execute the proposal provided by the user on Ethereum mainnet. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. If you need an Infrura project ID, do the same for INFURA_PROJECT_ID_GOES_HERE This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
+const SYSTEM_PROMPT = `Generate Node.js code to execute the proposal provided by the user on Linea, which has RPC URL "https://linea.drpc.org" and chainId 59144. This code can use Ethers.js v5 (via \`require("ethers")\`) but no other libraries. The first line of the code should be \`const PRIVATE_KEY = "PRIVATE_KEY_GOES_HERE";\` and the private key will be automatically substituted in. This code will be executed directly -- do not assume a human will make any changes. Do not include any content in your response besides the code.`;
 
 async function getProposalCodeFromDescription(description: string) {
   // we have a written description of a blockchain proposal, which could involve things like sending tokens. we want to generate ethers.js code to execute this proposal.
@@ -49,6 +49,11 @@ async function getProposalCodeFromDescription(description: string) {
     if (secondBacktickIndex !== -1) {
       code = code.slice(firstBacktickIndex + 3, secondBacktickIndex);
     }
+  }
+
+  // if code starts with "javascript", remove it
+  if (code.startsWith("javascript")) {
+    code = code.slice(10);
   }
 
   code = code + "\n";

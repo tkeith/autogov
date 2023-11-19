@@ -44,32 +44,39 @@ const ProposalCard: React.FC<{ proposal: Proposal }> = ({ proposal }) => {
           )}
         </div>
         {proposal.codeGenerationStatus === "success" && (
-          <button
-            className="mt-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
-            onClick={() => setShowCode(true)}
-          >
-            View Code
-          </button>
+          <>
+            <button
+              className="mt-4 w-36 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+              onClick={() => setShowCode(true)}
+            >
+              View Code
+            </button>
+            {proposal.status === "voting" && (
+              <>
+                <button
+                  className="ml-4 w-36 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700 focus:outline-none"
+                  onClick={() => handleVote("yes")}
+                >
+                  Vote Yes
+                </button>
+                <button
+                  className="ml-4 w-36 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+                  onClick={() => handleVote("no")}
+                >
+                  Vote No
+                </button>
+              </>
+            )}
+          </>
         )}
       </div>
-      {proposal.status === "voting" && (
-        <div className="mb-4">
-          <button
-            className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700 focus:outline-none"
-            onClick={() => handleVote("yes")}
-          >
-            Vote Yes
-          </button>
-          <button
-            className="ml-2 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
-            onClick={() => handleVote("no")}
-          >
-            Vote No
-          </button>
-        </div>
-      )}
+
       {showCode && (
-        <CodeModal code={proposal.code} onClose={() => setShowCode(false)} />
+        <CodeModal
+          code={proposal.code}
+          codeIpfsUrl={proposal.codeIpfsUrl}
+          onClose={() => setShowCode(false)}
+        />
       )}
     </div>
   );

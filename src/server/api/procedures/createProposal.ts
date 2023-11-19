@@ -2,6 +2,7 @@ import { publicProcedure } from "~/server/api/trpc";
 import { z } from "zod";
 import { db } from "~/server/db";
 import getProposalCodeFromDescription from "~/lib/getProposalCodeFromDescription";
+import uploadToIpfs from "~/lib/uploadToIpfs";
 
 const createProposal = publicProcedure
   .input(
@@ -30,9 +31,10 @@ const createProposal = publicProcedure
         const { code, status } = await getProposalCodeFromDescription(
           input.description,
         );
+        const ipfsUrl = await uploadToIpfs(`proposal_${proposal.id}.js`, code);
         await db.proposal.update({
           where: { id: proposal.id },
-          data: { code, codeGenerationStatus: status },
+          data: { code, codeGenerationStatus: status, codeIpfsUrl: ipfsUrl },
         });
       })().catch((error) => {
         console.error("Error generating proposal code:", error);
